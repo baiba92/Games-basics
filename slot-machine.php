@@ -18,7 +18,7 @@ $winningLines = [
     [['x' => 2, 'y' => 0], ['x' => 2, 'y' => 1], ['x' => 1, 'y' => 2], ['x' => 0, 'y' => 3]]
 ];
 
-function createSymbol(string $name, int $value): object
+function newSymbol(string $name, int $value): object
 {
     $symbol = new stdClass();
     $symbol->name = $name;
@@ -27,11 +27,11 @@ function createSymbol(string $name, int $value): object
 }
 
 $symbols = [
-    $dollar = createSymbol("$", 5),
-    $letterX = createSymbol("X", 4),
-    $letterO = createSymbol("O", 3),
-    $hashtag = createSymbol("#", 2),
-    $exclMark = createSymbol("!", 1)
+    $dollar = newSymbol("$", 5),
+    $letterX = newSymbol("X", 4),
+    $letterO = newSymbol("O", 3),
+    $hashtag = newSymbol("#", 2),
+    $exclMark = newSymbol("!", 1)
 ];
 
 function generateRandomBoard(): void
