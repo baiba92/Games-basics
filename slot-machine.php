@@ -8,53 +8,18 @@ $playerBet = 0;
 $MIN_BET = 1;
 $MAX_BET = 10;
 
-
 $winningLines = [
-    [
-        ['x' => 0, 'y' => 0],
-        ['x' => 0, 'y' => 1],
-        ['x' => 0, 'y' => 2],
-        ['x' => 0, 'y' => 3]
-    ],
-    [
-        ['x' => 1, 'y' => 0],
-        ['x' => 1, 'y' => 1],
-        ['x' => 1, 'y' => 2],
-        ['x' => 1, 'y' => 3]
-    ],
-    [
-        ['x' => 2, 'y' => 0],
-        ['x' => 2, 'y' => 1],
-        ['x' => 2, 'y' => 2],
-        ['x' => 2, 'y' => 3]
-    ],
-    [
-        ['x' => 0, 'y' => 0],
-        ['x' => 1, 'y' => 1],
-        ['x' => 2, 'y' => 2],
-        ['x' => 2, 'y' => 3]
-    ],
-    [
-        ['x' => 2, 'y' => 0],
-        ['x' => 1, 'y' => 1],
-        ['x' => 0, 'y' => 2],
-        ['x' => 0, 'y' => 3]
-    ],
-    [
-        ['x' => 0, 'y' => 0],
-        ['x' => 0, 'y' => 1],
-        ['x' => 1, 'y' => 2],
-        ['x' => 2, 'y' => 3]
-    ],
-    [
-        ['x' => 2, 'y' => 0],
-        ['x' => 2, 'y' => 1],
-        ['x' => 1, 'y' => 2],
-        ['x' => 0, 'y' => 3]
-    ]
+    [['x' => 0, 'y' => 0], ['x' => 0, 'y' => 1], ['x' => 0, 'y' => 2], ['x' => 0, 'y' => 3]],
+    [['x' => 1, 'y' => 0], ['x' => 1, 'y' => 1], ['x' => 1, 'y' => 2], ['x' => 1, 'y' => 3]],
+    [['x' => 2, 'y' => 0], ['x' => 2, 'y' => 1], ['x' => 2, 'y' => 2], ['x' => 2, 'y' => 3]],
+    [['x' => 0, 'y' => 0], ['x' => 1, 'y' => 1], ['x' => 2, 'y' => 2], ['x' => 2, 'y' => 3]],
+    [['x' => 2, 'y' => 0], ['x' => 1, 'y' => 1], ['x' => 0, 'y' => 2], ['x' => 0, 'y' => 3]],
+    [['x' => 0, 'y' => 0], ['x' => 0, 'y' => 1], ['x' => 1, 'y' => 2], ['x' => 2, 'y' => 3]],
+    [['x' => 2, 'y' => 0], ['x' => 2, 'y' => 1], ['x' => 1, 'y' => 2], ['x' => 0, 'y' => 3]]
 ];
 
-function createSymbol(string $name, int $value): object {
+function createSymbol(string $name, int $value): object
+{
     $symbol = new stdClass();
     $symbol->name = $name;
     $symbol->value = $value;
@@ -69,7 +34,8 @@ $symbols = [
     $exclMark = createSymbol("!", 1)
 ];
 
-function generateRandomBoard(): void {
+function generateRandomBoard(): void
+{
     global $board, $ROWS, $COLUMNS, $symbols;
     for ($row = 0; $row < $ROWS; $row++) {
         $board[$row] = [];
@@ -79,7 +45,8 @@ function generateRandomBoard(): void {
     }
 }
 
-function displayBoard(): void {
+function displayBoard(): void
+{
     global $board;
     foreach ($board as $row) {
         $symbolRow = [];
@@ -108,10 +75,11 @@ while (true) {
                 exit;
             }
         }
+
         $validCashFormat = false;
         while (!$validCashFormat) {
             $inputCash = readline("Enter your cash: ");
-            $cash = (int) $inputCash;
+            $cash = (int)$inputCash;
 
             if ($cash === 0 || strval($cash) !== $inputCash) {
                 echo "ERROR, valid cash format is whole number more than 0.\n";
@@ -131,14 +99,14 @@ while (true) {
         if ($playerBet === "X") {
             echo "GAME OVER.\nYou played $gameCount games,\nTotal cash: $cash $\n";
             exit;
-        } elseif (strval((int) $playerBet) !== $playerBet) {
+        } elseif (strval((int)$playerBet) !== $playerBet) {
             echo "INVALID BET FORMAT, enter whole number\n";
         } elseif ($playerBet < $MIN_BET || $playerBet > $MAX_BET) {
             echo "INVALID BET AMOUNT, try again\n";
         } elseif ($playerBet > $cash) {
             echo "Not enough cash for this bet, your cash amount: $cash $, try again\n";
         } else {
-            $playerBet = (int) $playerBet;
+            $playerBet = (int)$playerBet;
             $validBet = true;
         }
     }
@@ -154,7 +122,7 @@ while (true) {
         $testLineSymbols = [];
         foreach ($line as $key => $position) {
             $testLineSymbols[] = $board[$position['x']][$position['y']]->name; // push symbols from current board
-                                                                            // in line positions matching all winning lines
+            // in line positions matching all winning lines
         }
 
         if (count(array_unique($testLineSymbols)) === 1) {
